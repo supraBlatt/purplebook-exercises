@@ -1,1 +1,0 @@
-data Mood = Blah | Woot deriving Show  -- instance of Show typeclass?
