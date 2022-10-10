@@ -47,10 +47,10 @@ letterIndex x = str !! (x - 1)
 -- cavemen strat
 rvrs :: [Char]
 rvrs =  let x = "Curry is awesome"
-            firstTwo = take 9 x -- is there a better way to write this.. 
+            first    = take 5 x 
+            second   = drop 5 $ take 9 x 
             third    = drop 9 x
-            first    = take 5 firstTwo 
-            second   = drop 5 firstTwo 
         in third ++ second ++ first 
 -- >>> rvrs
 -- "awesome is Curry"
+
