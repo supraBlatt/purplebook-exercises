@@ -16,3 +16,14 @@ fib2 n cur last = case n of
               _ -> fib2 (n-1) (cur+last) cur
 -- >>> fib2 4 1 0 
 -- 5
+
+
+buz n = | n `mod` 15 == 0 = "fizzbuzz"
+        | n `mod` 5 == 0  = "fizz"
+        | n `mod` 3 == 0  = "buzz"
+        | otherwise       = show n 
+ 
+fizzbuzz n = putStrLn . map buz $ [1..n]
+
+-- >>> :t map
+-- map :: (a -> b) -> [a] -> [b]
