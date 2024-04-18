@@ -14,3 +14,11 @@ factorialIt mul n = factorialIt (mul*n) (n-1)
 
 -- take 5 . filter odd . enumFrom $ 3
 -- [  |  <- | <- applying <- |   <- ]   
+
+
+incTimes'' 0 = id
+incTimes'' t = (+1) . incTimes'' (t - 1)
+
+-- >>> :t incTime''
+-- Variable not in scope: incTime
+

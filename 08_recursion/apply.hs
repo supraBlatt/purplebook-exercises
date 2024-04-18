@@ -24,5 +24,12 @@ incTimes' t n = (+1) $ incTimes (t-1) n
 -- >>> incTimes' 4 1
 -- 5
 
--- >>> 1 + 1
--- 2
+incTimes'' 0 = id
+incTimes'' t = (+1) . incTimes'' (t-1)
+
+applyTimes 0 f b = b
+applyTimes n f b = f (applyTimes (n-1) f b)
+-- >>> :t incTime
+-- "hi"
+
+-- >>> :t applyTimes
