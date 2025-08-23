@@ -19,8 +19,13 @@ buz n   | n `mod` 15 == 0 = "fizzbuzz"
         | n `mod` 5 == 0  = "fizz"
         | n `mod` 3 == 0  = "buzz"
         | otherwise       = show n 
- 
-fizzbuzz n = putStrLn . map buz $ [1..n]
+
+
+fizzbuzz :: Int -> IO ()
+fizzbuzz n = mapM_ putStrLn $ map buz [1..n]
+
+
+-- >>> fizzbuzz 5
 
 -- >>> :t map
 -- map :: (a -> b) -> [a] -> [b]
