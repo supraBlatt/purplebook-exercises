@@ -13,3 +13,9 @@
 -- Prelude> :sprint myNum
 -- myNum = 1 : 2 : _
 
+-- This evaluates only the spine, but the spine here is cooked
+-- >>> [1] ++ undefined ++ [3]
+-- Prelude.undefined
+
+-- >>> length ([1] ++ undefined ++ [3])
+-- Prelude.undefined
