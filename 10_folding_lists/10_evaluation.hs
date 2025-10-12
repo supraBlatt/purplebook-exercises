@@ -1,0 +1,2 @@
+-- only for finite lists the following holds:
+-- foldr f z xs = foldl (flip f) z (reverse xs)
