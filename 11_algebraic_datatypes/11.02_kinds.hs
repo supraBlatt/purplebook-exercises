@@ -1,5 +1,7 @@
 import Text.XHtml (base)
+
 data MyList a = MyNil | MyCons a (MyList a)
+
 -- >>> :k MyList
 -- MyList :: * -> *
 
@@ -16,6 +18,7 @@ data MyList a = MyNil | MyCons a (MyList a)
 
 -- but can also have the same name..
 data DogueDeBordeaux doge = DogueDeBordeaux doge
+
 -- >>> :k DogueDeBordeaux
 -- DogueDeBordeaux :: * -> *
 
@@ -23,5 +26,7 @@ data DogueDeBordeaux doge = DogueDeBordeaux doge
 -- DogueDeBordeaux :: doge -> DogueDeBordeaux doge
 
 data HuskyType a = HuskyValue
+
 husk1 = HuskyValue :: HuskyType b
-husk2 = HuskyValue :: Num b => HuskyType b
+
+husk2 = HuskyValue :: (Num b) => HuskyType b

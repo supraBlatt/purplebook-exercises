@@ -1,4 +1,4 @@
-{- 
+{-
   + [data] is a keyword. signals a data\datatype *decleration* follows.
   + [=] divides the *type constructor* from the *data constructors*
   + [|] is a logical disjunction in what values a type can have aka *sumtype*
@@ -11,4 +11,5 @@ data MyBool = False | True
 data MyList a = MyNil | MyCons a (MyList a)
 
 data Trivial = Trivial'
+
 data UnaryTypeCon a = UnaryValueCon a

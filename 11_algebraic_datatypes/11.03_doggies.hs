@@ -1,6 +1,7 @@
-data Doggies a =  Husky a
-                | Mastiff a
-                deriving (Eq, Show)
+data Doggies a
+  = Husky a
+  | Mastiff a
+  deriving (Eq, Show)
 
 -- >>> :k Doggies
 -- >>> :t Husky
