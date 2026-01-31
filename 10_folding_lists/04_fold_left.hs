@@ -13,20 +13,20 @@ zl = foldl (\x y -> concat ["(", x, "+", y, ")"]) "0" xs
 -- >>> zl
 -- "(((((0+1)+2)+3)+4)+5)"
 
+
 -- instead of a zero element, we return the accumulator.
 
 -- >>> scanl (+) 0 [1..5]
--- [0,1,3,6,10,15]
+-- [15,14,12,9,5,0]
 
-myFold _ z [] = z
-myFold f z (x:xs) = f (myFold f z xs) x
+-- folds behave strangely when the operator is not associative
+-- usually, we want a [[Monoid]] for this very reason
 
-z = myFold (\x y -> concat ["(", x, "+", y, ")"]) "0" xs
--- >>> z
--- "(((((0+5)+4)+3)+2)+1)"
+-- >>> foldr (^) 2 [1..3]
+-- 1
 
+-- >>> foldl (^) 2 [1..3]
+-- 64
 
--- partial sum thing:
--- >>> scanl (+) 0 [1..5]
--- [0,1,3,6,10,15]
-
+-- >>> scanl (flip (:)) [] [1..3]
+-- [[],[1],[2,1],[3,2,1]]
