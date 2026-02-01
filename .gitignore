@@ -1,2 +1,20 @@
 .vscode/tasks.json
 .vscode/settings.json
+
+# Haskell build artifacts
+.stack-work/
+dist/
+dist-newstyle/
+.ghc.environment.*
+*.hi
+*.hi-boot
+*.o
+*.o-boot
+*.dyn_hi
+*.dyn_o
+*.prof
+*.hp
+*.eventlog
+*.aux
+*.out
+*.exe
