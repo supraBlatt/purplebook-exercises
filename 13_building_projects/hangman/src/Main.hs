@@ -13,6 +13,7 @@ main = do
   let puzzle = freshPuzzle (fmap toLower word)
   runGame puzzle
 
+-- parse word list ---------------------------------------
 type WordList = [String]
 allWords :: IO WordList
 allWords = do
@@ -41,14 +42,19 @@ randomWord' :: IO String
 randomWord' = gameWords >>= randomWord
 
 -- >>> randomWord'
--- "iotize"
+-- "puzzled"
+-- what an insane draw ^
 
+-- actual game---------------------------------------
 data Puzzle = Puzzle String [Maybe Char] [Char]
+maxLives :: Int
+maxLives = 7
 
 instance Show Puzzle where
-  show (Puzzle _ discovered guessed) = 
+  show p@(Puzzle _ discovered guessed) = 
     (intersperse ' ' $ fmap renderPuzzleChar discovered)
     ++ " Guessed so far: " ++ guessed
+    ++ " | Lives left: " ++ (show (maxLives - wrongGuesses p))
 
 freshPuzzle :: String -> Puzzle
 freshPuzzle s = Puzzle s (map (const Nothing) s) []
@@ -70,7 +76,12 @@ renderPuzzleChar = maybe '_' id
 -- >>> fmap renderPuzzleChar [Nothing, Just 'h', Nothing, Just 'e', Nothing]
 -- "_h_e_"
 
--- this is smart lmao
+-- could also explicitly add Lives to Puzzle? this is O(n) every round lmao
+wrongGuesses :: Puzzle -> Int
+wrongGuesses (Puzzle word _ guessed) =
+  length $ filter (`notElem` word) guessed
+
+-- this is smart lmao; assumes c not guessed so far
 fillInCharacter :: Puzzle -> Char -> Puzzle
 fillInCharacter (Puzzle word filledInSoFar s) c =
     Puzzle word newFilledInSoFar (c:s)
@@ -105,8 +116,8 @@ handleGuess puzzle guess = do
       return (fillInCharacter puzzle guess)
 
 gameOver :: Puzzle -> IO ()
-gameOver (Puzzle wordToGuess _ guessed) =
-  if (length guessed) > 7 then 
+gameOver p@(Puzzle wordToGuess _ _) =
+  if (wrongGuesses p) >= maxLives then 
       do  putStrLn "You lose!"
           putStrLn $ "The word was: " ++ wordToGuess
           exitSuccess
@@ -121,12 +132,12 @@ gameWin (Puzzle _ filledInSoFar _) =
 
 runGame :: Puzzle -> IO ()
 runGame puzzle = forever $ do
-  gameWin puzzle
-  gameOver puzzle
+  gameWin puzzle  -- exists program
+  gameOver puzzle -- exists program
   putStrLn $ "Current puzzle is: " ++ show puzzle
   putStr "Guess a letter: "
   guess <- getLine
   case guess of
-    [c] -> handleGuess puzzle c >>= runGame
+    [c] -> handleGuess puzzle (toLower c) >>= runGame
     _ -> putStrLn "Your guess must\
         \ be a single character"
