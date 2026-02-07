@@ -1,4 +1,8 @@
-import Data.Monoid (Sum (..))
+import Data.Monoid (Sum (..),
+                    All (..), 
+                    Any (..), 
+                    First (..), 
+                    Last (..))
 
 -- monoid S (*) =
 -- 1. exists unit e for S, (*):  e * s = s * e = s
@@ -9,7 +13,7 @@ class Monoid' m where
   mappend' :: m -> m -> m
   mconcat' :: [m] -> m
   mconcat' = foldr mappend' mempty'
- 
+
 -- >>> mappend [1,2,3] [4,5,6]
 -- [1,2,3,4,5,6]
 
@@ -24,3 +28,14 @@ class Monoid' m where
 
 -- >>> mappend (Sum 1) (Sum 5)
 -- Sum {getSum = 6}
+
+-- >>> Sum 1 <> Sum 5
+-- Sum {getSum = 6}
+
+-- >>> All True <> All True
+-- All {getAll = True}
+-- >>> Any True <> Any False
+-- Any {getAny = True}
+
+-- >>> First Nothing <> First (Just 1)
+-- First {getFirst = Just 1}
